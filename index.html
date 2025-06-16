@@ -14,17 +14,20 @@
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0,0,0,0.15);
     }
+
     h1 {
       font-size: 32px;
       color: #004a99;
       margin-bottom: 20px;
       text-shadow: 1px 1px #cce7ff;
     }
+
     p {
       font-size: 18px;
       color: #333;
       margin: 10px 0;
     }
+
     textarea {
       width: 95%;
       height: 130px;
@@ -37,15 +40,17 @@
       background: #f0f8ff;
       transition: all 0.3s ease;
     }
+
     textarea:focus {
       border-color: #004a99;
       background: #e6f5ff;
       outline: none;
     }
+
     button {
-      margin: 10px 5px;
-      padding: 12px 25px;
-      font-size: 18px;
+      margin-top: 18px;
+      padding: 12px 30px;
+      font-size: 20px;
       background: linear-gradient(to right, #007acc, #005f99);
       color: white;
       border: none;
@@ -53,16 +58,19 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
+
     button:hover {
       background: linear-gradient(to right, #005f99, #003f66);
       transform: scale(1.05);
     }
+
     #result {
       margin-top: 25px;
       font-size: 20px;
       font-weight: bold;
       color: #004a99;
     }
+
     .car-container {
       margin-top: 35px;
       min-height: 200px;
@@ -74,6 +82,7 @@
       box-shadow: 0 0 12px #a0c4ff;
       padding: 15px;
     }
+
     .car-gif {
       max-width: 220px;
       border-radius: 14px;
@@ -82,39 +91,26 @@
       transform: scale(0.9);
       animation: fadeInZoom 0.6s forwards;
     }
+
     @keyframes fadeInZoom {
       to {
         opacity: 1;
         transform: scale(1);
       }
     }
-    select {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 2px solid #007acc;
-      background: #f0f8ff;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      transition: all 0.3s ease;
-    }
   </style>
 </head>
 <body>
   <h1>🚗 Prolog марки коли с GIF 🚘</h1>
-  <p>Изберете готова заявка или напишете своя:</p>
-
-  <select id="query-select" onchange="insertQuery()">
-    <option value="">-- Избери заявка --</option>
-    <option value="is_electric(X).">Кои коли са електрически?</option>
-    <option value="is_suv(X).">Кои коли са SUV?</option>
-    <option value="is_fast(X).">Кои коли са бързи?</option>
-  </select>
-
-  <textarea id="prolog-input"></textarea><br />
-
+  <p>Напишете Prolog заявка:</p>
+  <textarea id="prolog-input">
+% Примери на заявки:
+is_electric(X).
+is_offroad(X).
+is_sedan(X).
+is_fast(X).
+  </textarea><br />
   <button onclick="runProlog()">Изпълни</button>
-  <button onclick="clearAll()">Изчисти</button>
 
   <div id="result"></div>
   <div class="car-container" id="car-animation"></div>
@@ -130,6 +126,9 @@
       car(audi).
       car(porsche).
       car(mercedes).
+      car(jeep).
+      car(volvo).
+      car(chevrolet).
 
       electric(tesla).
       suv(bmw).
@@ -138,9 +137,24 @@
       fast(porsche).
       fast(mercedes).
 
+      sedan(tesla).
+      sedan(mercedes).
+      coupe(porsche).
+      pickup(ford).
+      luxury(mercedes).
+      luxury(porsche).
+      offroad(jeep).
+      offroad(ford).
+      offroad(volvo).
+
       is_electric(X) :- electric(X).
       is_suv(X) :- suv(X).
       is_fast(X) :- fast(X).
+      is_sedan(X) :- sedan(X).
+      is_coupe(X) :- coupe(X).
+      is_pickup(X) :- pickup(X).
+      is_luxury(X) :- luxury(X).
+      is_offroad(X) :- offroad(X).
     `;
 
     session.consult(knowledge);
@@ -151,7 +165,10 @@
       ford: '<img src="https://media4.giphy.com/media/NfKEluwQgxvgI/giphy.gif" class="car-gif" alt="Ford" />',
       audi: '<img src="https://media2.giphy.com/media/w7G2MKMT6AZI4/giphy.gif" class="car-gif" alt="Audi" />',
       porsche: '<img src="https://media0.giphy.com/media/xUA7b1Iv7zcMD3bgjK/giphy.gif" class="car-gif" alt="Porsche" />',
-      mercedes: '<img src="https://media4.giphy.com/media/ljGfAhpsZ17ws/giphy.gif" class="car-gif" alt="Mercedes" />'
+      mercedes: '<img src="https://media4.giphy.com/media/ljGfAhpsZ17ws/giphy.gif" class="car-gif" alt="Mercedes" />',
+      jeep: '<img src="https://media.giphy.com/media/l3vQX41VgCw7I/giphy.gif" class="car-gif" alt="Jeep" />',
+      volvo: '<img src="https://media.giphy.com/media/3o6ZsZTvAxe35N0vHy/giphy.gif" class="car-gif" alt="Volvo" />',
+      chevrolet: '<img src="https://media.giphy.com/media/3o6Zt6ML6BklcajjsA/giphy.gif" class="car-gif" alt="Chevrolet" />'
     };
 
     function runProlog() {
@@ -164,7 +181,7 @@
 
       session.query(input);
       session.answers(answer => {
-        if (answer === false) {
+        if(answer === false) {
           resultDiv.innerHTML += `<p>Няма повече резултати.</p>`;
           return;
         }
@@ -186,22 +203,7 @@
         }
       });
     }
-
-    function clearAll() {
-      document.getElementById("prolog-input").value = "";
-      document.getElementById("result").innerHTML = "";
-      document.getElementById("car-animation").innerHTML = "";
-      document.getElementById("query-select").selectedIndex = 0;
-    }
-
-    function insertQuery() {
-      const select = document.getElementById("query-select");
-      const textarea = document.getElementById("prolog-input");
-      const selectedValue = select.value;
-      if (selectedValue) {
-        textarea.value = selectedValue;
-      }
-    }
   </script>
+
 </body>
 </html>
