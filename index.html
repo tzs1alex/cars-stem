@@ -124,12 +124,14 @@ is_fast(X).
       car(ford).
       car(audi).
       car(porsche).
+      car(mercedes).
 
       electric(tesla).
       suv(bmw).
       suv(audi).
       fast(ford).
       fast(porsche).
+      fast(mercedes).
 
       is_electric(X) :- electric(X).
       is_suv(X) :- suv(X).
@@ -139,11 +141,12 @@ is_fast(X).
     session.consult(knowledge);
 
     const carAnimations = {
-      tesla: '<img src="https://media.giphy.com/media/H7wajFPnZGdRWaQeu0/giphy.gif" class="car-gif" alt="Tesla" />',
-      bmw: '<img src="https://media.giphy.com/media/26gssIytJvy1b1THO/giphy.gif" class="car-gif" alt="BMW" />',
-      ford: '<img src="https://media.giphy.com/media/xUPGcEYH5jgtVqfOis/giphy.gif" class="car-gif" alt="Ford" />',
-      audi: '<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" class="car-gif" alt="Audi" />',
-      porsche: '<img src="https://media.giphy.com/media/QHE5gWI0QjqF2/giphy.gif" class="car-gif" alt="Porsche" />'
+      tesla: '<img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3JmajJ0djdwNmd5Y3BsZWx0OGRwbW15czhqcmF4MG9kOWtrc2UxaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/darAMUceRAs0w/giphy.gif" class="car-gif" alt="Tesla" />',
+      bmw: '<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHdwczJseXJzbXZiZ3UzcGp5cDB1dThuNG83bGtlNjY4OHZ4cnN0cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cHQq0zhPxDavu/giphy.gif" class="car-gif" alt="BMW" />',
+      ford: '<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTYwZWZ1ZWJhZ292aGszeWpwaWNzNHEwY3ZmYzk1MTM2MThjYzZmZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NfKEluwQgxvgI/giphy.gif" class="car-gif" alt="Ford" />',
+      audi: '<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWh5dThiZWZxeHQ2eDZteDE0dHpybXl4M2FveWN4dXFudDQyaW5hayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/w7G2MKMT6AZI4/giphy.gif" class="car-gif" alt="Audi" />',
+      porsche: '<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzZmcDB2czB2M2RkMTIwZ3cydnBzM3AwZ2F2N2JsNDJnYXl0ZTBjYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xUA7b1Iv7zcMD3bgjK/giphy.gif" class="car-gif" alt="Porsche" />'
+      mercedes: '<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGlra3NsNGtxbmgzNzU4aXY0aGV1dTY2YjdkMHo0ZXB0M3FzbTd4NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ljGfAhpsZ17ws/giphy.gif" class="car-gif" alt="Mercedes" />'
     };
 
     function runProlog() {
