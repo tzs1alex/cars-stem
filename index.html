@@ -14,63 +14,42 @@
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0,0,0,0.15);
     }
-
     h1 {
       font-size: 32px;
       color: #004a99;
       margin-bottom: 20px;
       text-shadow: 1px 1px #cce7ff;
     }
-
     p {
       font-size: 18px;
       color: #333;
       margin: 10px 0;
     }
-
-    textarea {
-      width: 95%;
-      height: 130px;
-      font-family: monospace;
-      font-size: 16px;
-      margin-top: 15px;
+    select, button {
       padding: 10px;
+      margin: 10px 5px;
+      font-size: 18px;
       border-radius: 8px;
       border: 2px solid #007acc;
-      background: #f0f8ff;
-      transition: all 0.3s ease;
-    }
-
-    textarea:focus {
-      border-color: #004a99;
       background: #e6f5ff;
-      outline: none;
-    }
-
-    button {
-      margin-top: 18px;
-      padding: 12px 30px;
-      font-size: 20px;
-      background: linear-gradient(to right, #007acc, #005f99);
-      color: white;
-      border: none;
-      border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
     }
-
+    button {
+      background: linear-gradient(to right, #007acc, #005f99);
+      color: white;
+      border: none;
+    }
     button:hover {
       background: linear-gradient(to right, #005f99, #003f66);
       transform: scale(1.05);
     }
-
     #result {
       margin-top: 25px;
       font-size: 20px;
       font-weight: bold;
       color: #004a99;
     }
-
     .car-container {
       margin-top: 35px;
       min-height: 200px;
@@ -82,7 +61,6 @@
       box-shadow: 0 0 12px #a0c4ff;
       padding: 15px;
     }
-
     .car-gif {
       max-width: 220px;
       border-radius: 14px;
@@ -91,7 +69,6 @@
       transform: scale(0.9);
       animation: fadeInZoom 0.6s forwards;
     }
-
     @keyframes fadeInZoom {
       to {
         opacity: 1;
@@ -102,15 +79,21 @@
 </head>
 <body>
   <h1>🚗 Prolog марки коли с GIF 🚘</h1>
-  <p>Напишете Prolog заявка:</p>
-  <textarea id="prolog-input">
-% Примери на заявки:
-is_electric(X).
-is_offroad(X).
-is_sedan(X).
-is_fast(X).
-  </textarea><br />
+  <p>Избери заявка:</p>
+
+  <select id="query-select">
+    <option value="is_electric(X).">Електрически</option>
+    <option value="is_suv(X).">SUV</option>
+    <option value="is_fast(X).">Бързи</option>
+    <option value="is_sedan(X).">Седан</option>
+    <option value="is_coupe(X).">Купе</option>
+    <option value="is_pickup(X).">Пикап</option>
+    <option value="is_luxury(X).">Луксозни</option>
+    <option value="is_offroad(X).">Офроуд</option>
+  </select>
+
   <button onclick="runProlog()">Изпълни</button>
+  <button onclick="clearResults()">Изчисти</button>
 
   <div id="result"></div>
   <div class="car-container" id="car-animation"></div>
@@ -172,7 +155,7 @@ is_fast(X).
     };
 
     function runProlog() {
-      const input = document.getElementById("prolog-input").value;
+      const input = document.getElementById("query-select").value;
       const resultDiv = document.getElementById("result");
       const animDiv = document.getElementById("car-animation");
 
@@ -202,6 +185,11 @@ is_fast(X).
           }
         }
       });
+    }
+
+    function clearResults() {
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("car-animation").innerHTML = "";
     }
   </script>
 
